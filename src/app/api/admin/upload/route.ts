@@ -1,3 +1,4 @@
+// vercel
 import { randomBytes } from "node:crypto";
 import path from "node:path";
 import { NextResponse } from "next/server";
@@ -7,6 +8,27 @@ import {
   MAX_UPLOAD_BYTES,
   detectImageExt,
 } from "@/lib/uploads";
+
+// local
+// import { randomBytes } from "node:crypto";
+
+// import fs from "node:fs/promises";
+
+// import path from "node:path";
+
+// import { NextResponse } from "next/server";
+
+// import { getCurrentAdmin } from "@/lib/auth";
+
+// import {
+
+//   MAX_UPLOAD_BYTES,
+
+//   detectImageExt,
+
+//   uploadDir,
+
+// } from "@/lib/uploads";
 
 export const runtime = "nodejs";
 
