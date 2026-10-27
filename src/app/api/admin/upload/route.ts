@@ -1,13 +1,11 @@
-
 import { randomBytes } from "node:crypto";
-import fs from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { put } from "@vercel/blob"; // <-- Import Vercel Blob
 import { getCurrentAdmin } from "@/lib/auth";
 import {
   MAX_UPLOAD_BYTES,
   detectImageExt,
-  uploadDir,
 } from "@/lib/uploads";
 
 export const runtime = "nodejs";
@@ -82,13 +80,25 @@ export async function POST(request: Request) {
     }
   }
 
+  // Buat nama file yang unik
   const name = `${Date.now().toString(36)}-${randomBytes(6).toString("hex")}.${ext}`;
-  const dir = uploadDir();
+  const filename = `uploads/${name}`;
 
-  await fs.mkdir(dir, { recursive: true });
-  await fs.writeFile(path.join(dir, name), bytes, { flag: "wx" });
+  try {
+    // Unggah file langsung ke Vercel Blob (menggantikan fs.writeFile lokal)
+    const blob = await put(filename, file, {
+      access: "public",
+    });
 
-  return NextResponse.json({
-    url: `/uploads/${name}`,
-  });
+    // Mengembalikan URL publik dari Vercel Blob untuk disimpan ke database
+    return NextResponse.json({
+      url: blob.url,
+    });
+  } catch (error) {
+    console.error("Vercel Blob upload error:", error);
+    return NextResponse.json(
+      { error: "Gagal mengunggah file ke penyimpanan." },
+      { status: 500 }
+    );
+  }
 }
