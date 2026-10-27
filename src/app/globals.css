@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+/*
+  Sistem desain: indigo celupan batik, kunyit (kunyit) sebagai aksen, latar abu kebiruan.
+  Motif utama: kawung, pola elips empat kelopak.
+*/
+@theme {
+  --color-ink: #0e1333;
+  --color-batik: #1b2559;
+  --color-batik-soft: #2b3a86;
+  --color-batik-wash: #3d4ea3;
+  --color-mist: #edf0f7;
+  --color-paper: #f8f9fc;
+  --color-line: #cbd2e6;
+  --color-muted: #4a5278;
+  --color-kunyit: #e9b308;
+  --color-kunyit-soft: #f6dc7a;
+  --color-danger: #b42318;
+  --color-ok: #17663a;
+
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-petal: petal-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes petal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--color-kunyit);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-batik-soft);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-kunyit);
+}
+
+/* Elemen kelopak pada motif hero. */
+.petal {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: var(--animate-petal);
+  animation-delay: var(--d, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .petal {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Gaya teks panjang (artikel, studi kasus, penjelasan layanan). */
+.prose-doc {
+  max-width: 68ch;
+  line-height: 1.75;
+}
+.prose-doc > * + * {
+  margin-top: 1.1em;
+}
+.prose-doc h2 {
+  font-size: 1.65rem;
+  margin-top: 2em;
+}
+.prose-doc h3 {
+  font-size: 1.25rem;
+  margin-top: 1.6em;
+}
+.prose-doc a {
+  color: var(--color-batik-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-doc ul,
+.prose-doc ol {
+  padding-left: 1.35rem;
+}
+.prose-doc ul {
+  list-style: disc;
+}
+.prose-doc ol {
+  list-style: decimal;
+}
+.prose-doc li + li {
+  margin-top: 0.35em;
+}
+.prose-doc li::marker {
+  color: var(--color-kunyit);
+}
+.prose-doc blockquote {
+  border-left: 3px solid var(--color-kunyit);
+  padding-left: 1rem;
+  color: var(--color-muted);
+}
+.prose-doc code {
+  background: var(--color-mist);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+.prose-doc pre {
+  background: var(--color-ink);
+  color: #e8ebf7;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 4px;
+}
+.prose-doc pre code {
+  background: none;
+  padding: 0;
+}
+.prose-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+.prose-doc th,
+.prose-doc td {
+  border-bottom: 1px solid var(--color-line);
+  padding: 0.5rem 0.75rem 0.5rem 0;
+  text-align: left;
+}
+.prose-doc img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.prose-doc hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+}
+/* ============================
+   Confirm Modal Animations
+   ============================ */
+
+@keyframes modal-fade-in {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to   { opacity: 1; backdrop-filter: blur(4px); }
+}
+@keyframes modal-fade-out {
+  from { opacity: 1; backdrop-filter: blur(4px); }
+  to   { opacity: 0; backdrop-filter: blur(0px); }
+}
+
+@keyframes modal-pop-in {
+  from { opacity: 0; transform: scale(0.92) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes modal-pop-out {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to   { opacity: 0; transform: scale(0.95) translateY(8px); }
+}
+
+
+
+.animate-modal-backdrop-in {
+  animation: modal-fade-in 200ms ease-out forwards;
+}
+.animate-modal-backdrop-out {
+  animation: modal-fade-out 180ms ease-in forwards;
+}
+
+.animate-modal-card-in {
+  animation: modal-pop-in 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.animate-modal-card-out {
+  animation: modal-pop-out 180ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-modal-backdrop-in,
+  .animate-modal-backdrop-out,
+  .animate-modal-card-in,
+  .animate-modal-card-out {
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================
+   SCROLL ANIMATIONS & COMPOSITION UTILITIES
+   ========================================= */
+
+/* Animasi Slide dari Kiri */
+.slide-from-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.slide-from-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Animasi Slide dari Kanan */
+.slide-from-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.slide-from-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Animasi Slide dari Bawah (Staggered) */
+.slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.slide-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Efek Zoom In untuk Gambar */
+.zoom-in {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.zoom-in.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Background Pola Titik (Dots Pattern) untuk Section */
+.bg-dots-pattern {
+  background-image: radial-gradient(var(--color-line) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Background Grid Pattern */
+.bg-grid-pattern-dark {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* Hover Card dengan Overlay Gradient */
+.card-hover-gradient {
+  position: relative;
+  overflow: hidden;
+}
+.card-hover-gradient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(27,37,89,0.9), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+.card-hover-gradient:hover::after {
+  opacity: 1;
+}
+.card-hover-gradient > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Sembunyikan scrollbar tapi tetap bisa scroll (Chrome, Safari, Firefox, Edge) */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
