@@ -27,16 +27,15 @@ export default async function PanelLayout({
   const unread = Number(rows[0]?.n ?? 0);
 
   return (
-    // Di mobile: layout normal (bisa discroll ke bawah).
-    // Di desktop (md): dikunci setinggi layar dan overflow disembunyikan.
-    <div className="min-h-screen bg-paper md:flex md:h-screen md:overflow-hidden">
+    // Mobile: normal. Desktop: fixed inset-0 agar benar-benar mengunci layar.
+    <div className="min-h-screen bg-paper md:fixed md:inset-0 md:flex md:overflow-hidden">
       
       <Sidebar adminName={admin.name} unread={unread} />
 
       {/* Area Konten Utama */}
       <main
         id="konten-admin"
-        className="min-w-0 flex-1 px-4 py-8 md:h-screen md:overflow-y-auto md:px-8 md:py-10"
+        className="min-w-0 flex-1 px-4 py-8 md:h-full md:overflow-y-auto md:px-8 md:py-10"
       >
         <div className="mx-auto max-w-5xl">{children}</div>
       </main>
