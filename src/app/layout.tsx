@@ -1,16 +1,14 @@
-import type { Metadata } from "next";
-import "@fontsource-variable/bricolage-grotesque";
-import "@fontsource-variable/public-sans";
-import "./globals.css";
+import type { NextConfig } from "next";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
+  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="id">
-      <body className="min-h-screen antialiased">{children}</body>
-    </html>
-  );
-}
+export default nextConfig;
