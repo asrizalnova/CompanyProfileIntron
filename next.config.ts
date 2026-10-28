@@ -1,9 +1,18 @@
-
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   allowedDevOrigins: ["192.168.1.4"],
+
+  // IZINKAN GAMBAR DARI VERCEL BLOB AGAR PRATINJAU GALERI MUNCUL
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
+  },
 
   experimental: {
     serverActions: {
@@ -11,15 +20,18 @@ const nextConfig: NextConfig = {
     },
   },
 
-  // serverExternalPackages: ["better-sqlite3"],
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
+  // Turbopack rules hanya untuk development jika diperlukan, 
+  // atau bisa dilewati agar aman saat build production di Vercel
+  ...(process.env.NODE_ENV === 'development' && {
+    turbopack: {
+      rules: {
+        "*.css": {
+          loaders: ["@tailwindcss/turbopack"],
+          as: "*.css",
+        },
       },
     },
-  },
+  }),
 
   async headers() {
     return [
