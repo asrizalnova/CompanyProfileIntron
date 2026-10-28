@@ -1,9 +1,7 @@
-
 "use server";
 
 import { randomUUID } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
-import path from "node:path";
+import { put } from "@vercel/blob";
 import type { RowDataPacket } from "mysql2";
 import { revalidatePath } from "next/cache";
 import { db } from "@/db";
@@ -39,7 +37,6 @@ async function saveReviewPhoto(file: File): Promise<string | null> {
 
   const buffer = Buffer.from(await file.arrayBuffer());
 
-  // Periksa signature file, bukan hanya nama atau MIME dari browser.
   const isJpeg =
     extension === ".jpg" &&
     buffer.length >= 3 &&
@@ -64,22 +61,21 @@ async function saveReviewPhoto(file: File): Promise<string | null> {
     throw new Error("Isi file bukan gambar JPG, PNG, atau WebP yang valid.");
   }
 
-  const uploadDir = path.join(
-    process.cwd(),
-    "public",
-    "uploads",
-    "ulasan-siswa",
-  );
-
-  await mkdir(uploadDir, { recursive: true });
-
   const filename = `${randomUUID()}${extension}`;
+  const pathname = `ulasan-siswa/${filename}`;
 
-  await writeFile(path.join(uploadDir, filename), buffer, {
-    flag: "wx",
-  });
+  try {
+    // Upload langsung ke Vercel Blob Storage
+    const blob = await put(pathname, file, {
+      access: "public",
+      addRandomSuffix: false,
+    });
 
-  return `/uploads/ulasan-siswa/${filename}`;
+    return blob.url;
+  } catch (err) {
+    console.error("Vercel Blob Review Upload Error:", err);
+    throw new Error("Gagal mengunggah foto ke cloud storage.");
+  }
 }
 
 export async function submitStudentReview(
@@ -102,7 +98,6 @@ export async function submitStudentReview(
     rating: ratingRaw,
   };
 
-  // Honeypot untuk mengurangi spam otomatis sederhana.
   if (website) {
     return { error: "Ulasan tidak dapat dikirim." };
   }
