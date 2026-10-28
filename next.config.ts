@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Jika ingin mengizinkan gambar dari Vercel Blob, cukup tambahkan ini:
   images: {
     remotePatterns: [
       {
