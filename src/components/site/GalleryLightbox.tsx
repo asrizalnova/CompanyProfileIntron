@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-
 type Photo = {
   id: string | number;
   imageUrl: string;
@@ -107,11 +106,15 @@ export function GalleryLightbox({ photos, albumTitle }: { photos: Photo[], album
             className="group relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-line bg-mist focus:outline-none focus:ring-2 focus:ring-batik focus:ring-offset-2 text-left"
           >
             <Image
-              src={photo.imageUrl}
+              src={
+                photo.imageUrl.startsWith("http")
+                  ? `/uploads/${photo.imageUrl.split("/").pop()}`
+                  : photo.imageUrl
+              }
               alt={photo.title || albumTitle}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
             
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 via-ink/40 to-transparent p-5 pt-12 pointer-events-none">

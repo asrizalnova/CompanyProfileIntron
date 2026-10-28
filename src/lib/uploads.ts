@@ -5,11 +5,11 @@ import path from "node:path";
 export const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
 
 export function uploadDir() {
-  const dir = process.env.UPLOAD_DIR ?? "./uploads";
+  const dir = process.env.UPLOAD_DIR || "./public/uploads";
 
   return path.isAbsolute(dir)
     ? dir
-    : path.resolve(/*turbopackIgnore: true*/ process.cwd(), dir);
+    : path.resolve(process.cwd(), dir);
 }
 
 export const MIME_BY_EXT: Record<string, string> = {
