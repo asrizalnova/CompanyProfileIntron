@@ -1,9 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-<<<<<<< HEAD
   poweredByHeader: false,
   allowedDevOrigins: ["192.168.1.4"],
+
+  // IZINKAN GAMBAR DARI VERCEL BLOB AGAR PRATINJAU GALERI MUNCUL
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
+      },
+    ],
+  },
 
   experimental: {
     serverActions: {
@@ -11,27 +20,20 @@ const nextConfig: NextConfig = {
     },
   },
 
-  // serverExternalPackages: ["better-sqlite3"],
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
-
   async headers() {
     return [
-=======
-  images: {
-    remotePatterns: [
->>>>>>> 07c8f05eba4df243b011603284b31eb0bcb262fc
       {
-        protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com",
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+        ],
       },
-    ],
+    ];
   },
 };
 
