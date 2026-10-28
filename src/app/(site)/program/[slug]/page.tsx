@@ -287,7 +287,7 @@ export default async function ProgramDetailPage({ params }: Props) {
                       Dana <span className="text-batik-soft">Mandiri</span>
                     </h3>
                     <ul className="space-y-2 text-muted mb-8">
-                      <li>Pelatihan : <strong className="text-ink">Rp 11.000.000,-</strong></li>
+                      <li>Pelatihan : <strong className="text-ink">Rp 16.500.000,-</strong></li>
                       <li>Keberangkatan : <strong className="text-ink">Rp 25.000.000,-</strong></li>
                     </ul>
                     {/* Tombol Info Lebih Lanjut diarahkan ke WhatsApp (Dana Mandiri) */}
@@ -339,7 +339,7 @@ export default async function ProgramDetailPage({ params }: Props) {
                       Dana Talang <br /> <span className="text-kunyit">Keberangkatan</span>
                     </h3>
                     <ul className="space-y-2 text-muted mb-8">
-                      <li>Pelatihan : <strong className="text-ink">Rp 11.000.000,-</strong></li>
+                      <li>Pelatihan : <strong className="text-ink">Rp 16.500.000,-</strong></li>
                       <li>Keberangkatan : <strong className="text-ink">Rp 0,-</strong></li>
                     </ul>
                     {/* Tombol Info Lebih Lanjut diarahkan ke WhatsApp (Dana Talang) */}
