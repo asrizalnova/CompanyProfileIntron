@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   allowedDevOrigins: ["192.168.1.4"],
 
-  // IZINKAN GAMBAR DARI VERCEL BLOB AGAR PRATINJAU GALERI MUNCUL
   images: {
     remotePatterns: [
       {
