@@ -1,7 +1,7 @@
-
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+<<<<<<< HEAD
   poweredByHeader: false,
   allowedDevOrigins: ["192.168.1.4"],
 
@@ -23,18 +23,15 @@ const nextConfig: NextConfig = {
 
   async headers() {
     return [
+=======
+  images: {
+    remotePatterns: [
+>>>>>>> 07c8f05eba4df243b011603284b31eb0bcb262fc
       {
-        source: "/:path*",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-        ],
+        protocol: "https",
+        hostname: "*.public.blob.vercel-storage.com",
       },
-    ];
+    ],
   },
 };
 
