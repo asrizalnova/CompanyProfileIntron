@@ -21,13 +21,17 @@ function connect() {
     password: decodeURIComponent(databaseConfig.password),
     database: databaseConfig.pathname.replace(/^\//, ""),
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: 5, // Batasi maksimum koneksi per instance agar aman untuk Aiven free tier
     queueLimit: 0,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   });
 }
 
+// Simpan pool ke globalThis tanpa membatasi environment agar tidak membuat pool baru terus-menerus di Vercel
 export const db = globalForDb.__mysqlPool ?? connect();
 
-if (process.env.NODE_ENV !== "production") {
+if (typeof window === "undefined") {
   globalForDb.__mysqlPool = db;
 }
