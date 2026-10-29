@@ -19,6 +19,7 @@ import {
 } from "@/lib/data";
 import { formatDate, splitTags } from "@/lib/utils";
 import { TestimonialSlider } from "@/components/site/TestimonialSlider";
+import { InstructorSlider } from "@/components/site/InstructorSlider";
 
 
 function getYouTubeEmbedUrl(
@@ -89,10 +90,10 @@ export default async function HomePage() {
 
   return (
     <>
-          {/* HERO SECTION - Fixed Layout & Terkunci */}
+              {/* HERO SECTION - Fixed Layout & Terkunci */}
       <section className="relative isolate flex w-full items-center overflow-hidden bg-[#0f0f0f] text-white">
         
-        {/* 1. BACKGROUND GAMBAR (Menggunakan object-cover & object-center) */}
+                {/* 1. BACKGROUND GAMBAR (Menggunakan object-cover & object-center) */}
         {settings.heroImageUrl && (
           <div className="absolute inset-0 -z-20 h-full w-full">
             <img
@@ -104,7 +105,6 @@ export default async function HomePage() {
             />
             {/* Overlay Gelap agar teks terbaca (kiri lebih gelap) */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#0f0f0f] via-[#0f0f0f]/80 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] via-transparent to-transparent" />
           </div>
         )}
 
@@ -112,8 +112,8 @@ export default async function HomePage() {
         <div className="pointer-events-none absolute left-0 top-1/2 -z-10 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-[#00AEEF]/20 blur-[150px]" />
         <div className="pointer-events-none absolute right-0 top-0 -z-10 h-[400px] w-[400px] rounded-full bg-[#E31E24]/10 blur-[120px]" />
 
-        {/* 2. CONTAINER UTAMA: Dikunci lebarnya (max-w-6xl) & diberi tinggi pasti (min-h) */}
-        <Container className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 md:py-28">
+        {/* 2. CONTAINER UTAMA: Diberi padding bawah ekstra (pb-32) agar tidak nabrak Stats */}
+        <Container className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-20 pb-24 md:pt-28 md:pb-32">
           
           {/* 3. KONTEN TEKS: Dikunci maksimal 3xl agar kalimat turun ke bawah, tidak memanjang */}
           <div className="flex max-w-3xl flex-col justify-center">
@@ -130,7 +130,6 @@ export default async function HomePage() {
             </Reveal>
 
             <Reveal animation="up" delay={150}>
-              {/* Ukuran font H1 diturunkan sedikit agar proporsional */}
               <h1 className="text-3xl font-extrabold leading-[1.15] tracking-tight md:text-4xl lg:text-5xl">
                 {settings.heroTitle}
               </h1>
@@ -138,7 +137,6 @@ export default async function HomePage() {
 
             {settings.heroSubtitle && (
               <Reveal animation="up" delay={300}>
-                {/* Teks paragraf dibuat lebih kecil dan padat */}
                 <p className="mt-5 border-l-[3px] border-[#39B54A] pl-5 text-sm leading-relaxed text-gray-300 md:text-base">
                   {settings.heroSubtitle}
                 </p>
@@ -160,9 +158,10 @@ export default async function HomePage() {
         </Container>
       </section>
 
-      {/* STATS SECTION - Mengambang (Floating) & Bersih */}
+        {/* STATS SECTION - Mengambang (Floating) & Bersih */}
       {stats.length > 0 && (
-        <section aria-label="Angka perusahaan" className="relative z-20 -mt-20">
+        // Di HP margin-top hanya -mt-10 (naik dikit), di Desktop -mt-20 (naik banyak)
+        <section aria-label="Angka perusahaan" className="relative z-20 -mt-16 md:-mt-24">
           <Container>
             <Reveal animation="up">
               <dl className="grid grid-cols-2 gap-8 rounded-[2rem] border border-gray-100 bg-white/90 p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] backdrop-blur-xl md:grid-cols-4 md:p-12">
@@ -181,7 +180,7 @@ export default async function HomePage() {
           </Container>
         </section>
       )}
-
+      
       {/* ABOUT SECTION */}
       {(settings.aboutTitle || aboutIntro) && (
         <section className="overflow-hidden py-24 md:py-32 bg-white">
@@ -223,46 +222,93 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* COMPANY PROFILE VIDEO SECTION */}
+            {/* COMPANY PROFILE VIDEO SECTION */}
       {companyProfileVideoUrl && (
         <section className="overflow-hidden bg-gray-50 py-20 md:py-28">
-          <Container>
+          <Container className="max-w-6xl">
+            
+            {/* HEADER: BADGE & JUDUL (Di Atas, Center) */}
             <Reveal animation="up">
-              <SectionTitle
-                align="center"
-                intro="Kenali profil, kegiatan, dan perjalanan Intron Global Academy melalui video company profile kami."
-              >
-                Mengenal Intron Global Lebih Dekat
-              </SectionTitle>
-            </Reveal>
-
-            <Reveal animation="up" delay={150}>
-              <div id="company-profile-video" className="mx-auto mt-12 max-w-4xl relative">
-                
-                <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-[#00AEEF] via-[#39B54A] to-[#E31E24] opacity-20 blur-xl"></div>
-
-                <div className="relative w-full overflow-hidden rounded-3xl border-4 border-white bg-black shadow-2xl aspect-video">
-                  <div 
-                    className="absolute inset-0 h-full w-full"
-                    style={{
-                      WebkitMaskImage: '-webkit-radial-gradient(white, black)',
-                      maskImage: 'radial-gradient(white, black)'
-                    }}
-                  >
-                    <iframe
-                      src={companyProfileVideoUrl}
-                      title="Video Company Profile Intron Global Academy"
-                      className="absolute inset-0 h-full w-full border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      referrerPolicy="strict-origin-when-cross-origin"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
+              <div className="flex flex-col items-center text-center mb-14">
+                {/* Bubble / Badge Logo */}
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm">
+                  <span className="flex gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-[#E31E24]" />
+                    <span className="h-2 w-2 rounded-full bg-[#39B54A]" />
+                    <span className="h-2 w-2 rounded-full bg-[#00AEEF]" />
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A] md:text-xs">
+                    LPK INTRON GLOBAL ACADEMY
+                  </span>
                 </div>
 
+                {/* Judul Utama */}
+                <h2 className="text-3xl font-extrabold tracking-tight text-[#1A1A1A] md:text-5xl leading-[1.1]">
+                  Mengenal Intron<br className="hidden md:block"/> Global Lebih Dekat
+                </h2>
               </div>
             </Reveal>
+
+            {/* KONTEN: 2 KOLOM (Kiri Video, Kanan Teks) */}
+            {/* Menggunakan items-center agar sejajar di tengah secara vertikal */}
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+              
+              {/* KIRI: VIDEO YOUTUBE */}
+              <Reveal animation="left" delay={100}>
+                <div id="company-profile-video" className="relative w-full">
+                  {/* Efek Glow di Belakang Video */}
+                  <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-[#00AEEF] via-[#39B54A] to-[#E31E24] opacity-20 blur-xl"></div>
+
+                  {/* Video dibungkus rasio 16:9 agar proporsional */}
+                  <div className="relative w-full overflow-hidden rounded-3xl border-4 border-white bg-black shadow-2xl aspect-video">
+                    <div 
+                      className="absolute inset-0 h-full w-full"
+                      style={{
+                        WebkitMaskImage: '-webkit-radial-gradient(white, black)',
+                        maskImage: 'radial-gradient(white, black)'
+                      }}
+                    >
+                      <iframe
+                        src={companyProfileVideoUrl}
+                        title="Video Company Profile Intron Global Academy"
+                        className="absolute inset-0 h-full w-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+
+              {/* KANAN: TEKS PARAGRAF */}
+              <Reveal animation="right" delay={200}>
+                <div className="flex flex-col justify-center text-center lg:text-left">
+                  {/* Teks disesuaikan ukurannya dan diberi spasi yang pas agar seimbang dengan tinggi video */}
+                  <div className="space-y-4 text-sm leading-relaxed text-gray-600 md:text-base">
+                    <p>
+                      Sebagai lembaga pelatihan kerja dan bahasa Jepang yang berdedikasi, 
+                      <strong className="text-gray-900"> Intron Global Academy </strong> 
+                      hadir untuk menjembatani impian Anda menuju karier profesional di Jepang.
+                    </p>
+                    <p>
+                      Melalui video profil ini, kami mengajak Anda untuk melihat lebih dekat 
+                      fasilitas modern, kurikulum pengajaran yang komprehensif, serta 
+                      dedikasi para instruktur ahli kami dalam membekali setiap peserta 
+                      dengan keterampilan bahasa dan etos kerja berstandar internasional.
+                    </p>
+                    <p>
+                      Kami percaya bahwa kesiapan mental dan keterampilan teknis adalah kunci 
+                      utama kesuksesan bekerja di luar negeri. Oleh karena itu, setiap program 
+                      dirancang secara terstruktur agar Anda dapat beradaptasi dengan cepat 
+                      dengan budaya dan lingkungan kerja di Jepang.
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+
+            </div>
           </Container>
         </section>
       )}
@@ -341,71 +387,31 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* INSTRUKTUR SECTION */}
+            {/* INSTRUKTUR SECTION (Menggunakan Swiper Slider) */}
       {team.length > 0 && (
         <section className="relative overflow-hidden py-24 md:py-32 bg-white">
           <Container className="relative z-10">
             <Reveal animation="up">
-              <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
+              <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
                 <SectionTitle intro="Belajar bersama instruktur yang siap mendampingi persiapan bahasa dan dunia kerja di Jepang.">
                   Kenali Para Staff Kami
                 </SectionTitle>
+                <ButtonLink href="/tentang" variant="outline" className="hidden sm:inline-flex">
+                  Lihat Semua
+                </ButtonLink>
               </div>
             </Reveal>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {team.slice(0, 4).map((instructor, i) => (
-                <Reveal key={instructor.id} animation="up" delay={i * 100}>
-                  <div className="group h-full overflow-hidden rounded-3xl bg-white transition-all duration-500 hover:-translate-y-2">
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-gray-100">
-                      {instructor.photoUrl ? (
-                        <img
-                          src={instructor.photoUrl}
-                          alt={instructor.name}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#00AEEF]/10 to-[#39B54A]/10">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1"
-                            className="h-24 w-24 text-[#00AEEF]/30"
-                            aria-hidden="true"
-                          >
-                            <circle cx="12" cy="8" r="4" />
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 21a8 8 0 0 1 16 0" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
+            {/* Slider Instruktur */}
+            <Reveal animation="up" delay={150}>
+              <InstructorSlider team={team.slice(0, 8)} />
+            </Reveal>
 
-                    <div className="pt-6 pb-2 px-2">
-                      <h3 className="text-xl font-bold text-[#1A1A1A] transition-colors group-hover:text-[#00AEEF]">
-                        {instructor.name}
-                      </h3>
-                      {instructor.role && (
-                        <p className="mt-1 text-sm font-bold text-[#E31E24]">
-                          {instructor.role}
-                        </p>
-                      )}
-                      {instructor.bio && (
-                        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-gray-500">
-                          {instructor.bio}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-
+            {/* Tombol Lihat Semua di Mobile */}
             <Reveal animation="up" delay={300}>
-              <div className="mt-16 text-center">
+              <div className="mt-8 text-center sm:hidden">
                 <ButtonLink href="/tentang" variant="outline">
-                  Kunjungi Profil Para Instruktur
+                  Lihat Semua Instruktur
                 </ButtonLink>
               </div>
             </Reveal>
@@ -419,6 +425,7 @@ export default async function HomePage() {
     <div className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-[#00AEEF]/10 blur-[150px]" />
     <div className="absolute left-0 bottom-0 h-[400px] w-[400px] rounded-full bg-[#E31E24]/10 blur-[120px]" />
 
+<<<<<<< HEAD
     <Container className="relative z-10">
       <Reveal animation="up">
         <h2 className="mb-16 max-w-[20ch] text-4xl font-bold tracking-tight text-white md:text-5xl">
@@ -455,6 +462,44 @@ export default async function HomePage() {
     </Container>
   </section>
 )}
+=======
+          <Container className="relative z-10">
+            <Reveal animation="up">
+              <h2 className="mb-16 max-w-[20ch] text-4xl font-bold tracking-tight text-white md:text-5xl">
+                Kata Mereka Setelah{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] to-[#39B54A]">
+                  Berhasil Berangkat ke Jepang
+                </span>
+              </h2>
+            </Reveal>
+            <Reveal animation="up" delay={150}>
+              <TestimonialSlider testimonials={testimonials} />
+            </Reveal>
+
+            {/* Tombol Lihat Semua Ulasan */}
+            <Reveal animation="up" delay={300}>
+              <div className="mt-12 flex justify-center">
+                <Link
+                  href="/ulasan-siswa"
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-[#00AEEF] hover:bg-[#00AEEF]/10 hover:shadow-[0_0_30px_rgba(0,174,239,0.3)]"
+                >
+                  Lihat Semua Ulasan Siswa
+                  <svg
+                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
+            </Reveal>
+          </Container>
+        </section>
+      )}
+>>>>>>> cdde4c8 (update total slider team)
 
       {/* PARTNERS SECTION */}
       {partners.length > 0 && (

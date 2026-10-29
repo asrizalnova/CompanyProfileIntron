@@ -5,6 +5,7 @@ import { Markdown } from "@/components/site/Media";
 import { ButtonLink, Container, SectionTitle, Reveal } from "@/components/site/ui";
 import { getSettings, getStats, getTeam } from "@/lib/data";
 import { SiteHero } from "@/components/site/SiteHero";
+import { InstructorSlider } from "@/components/site/InstructorSlider";
 
 export const metadata: Metadata = {
   title: "Tentang kami",
@@ -91,7 +92,7 @@ export default async function AboutPage() {
       </section>
 
       
-                {/* =========================================
+      {/* =========================================
           LATAR BELAKANG PERUSAHAAN (Layout Grid Profesional)
           ========================================= */}
       {(settings.backgroundBody || settings.backgroundImageUrl) && (
@@ -251,93 +252,23 @@ export default async function AboutPage() {
         </section>
       )}
 
-            {/* INSTRUKTUR / TIM KAMI SECTION */}
+           {/* INSTRUKTUR / TIM KAMI SECTION (Menggunakan Swiper) */}
       {team.length > 0 && (
         <section className="relative overflow-hidden py-24 md:py-32 bg-white">
           <Container className="relative z-10">
             <Reveal animation="up">
-              <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
+              <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
                 <SectionTitle intro="Belajar bersama instruktur yang siap mendampingi persiapan bahasa dan dunia kerja di Jepang.">
                   Kenali Para Staff Kami
                 </SectionTitle>
               </div>
             </Reveal>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {/* Menampilkan semua team tanpa slice & tanpa tombol di bawah */}
-              {team.map((instructor, i) => (
-                <Reveal key={instructor.id} animation="up" delay={i * 100}>
-                  <div className="group h-full overflow-hidden rounded-3xl bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)]">
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-gray-50">
-                      {instructor.photoUrl ? (
-                        /* JIKA ADA FOTO */
-                        <img
-                          src={instructor.photoUrl}
-                          alt={instructor.name}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      ) : (
-                        /* JIKA TIDAK ADA FOTO (MODERN PLACEHOLDER) */
-                        <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#00AEEF]/5 via-white to-[#39B54A]/5">
-                          
-                          {/* Efek Blur / Orbs Warna Logo di Background */}
-                          <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-[#00AEEF]/20 blur-[60px] transition-all duration-500 group-hover:bg-[#00AEEF]/30" />
-                          <div className="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-[#39B54A]/20 blur-[60px] transition-all duration-500 group-hover:bg-[#39B54A]/30" />
-                          <div className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#E31E24]/10 blur-[40px]" />
-
-                          {/* Inisial Nama dengan Font Besar & Transparan */}
-                          <div className="relative z-10 flex flex-col items-center">
-                            <span className="font-display text-7xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-[#00AEEF] to-[#39B54A] opacity-80 drop-shadow-sm transition-transform duration-500 group-hover:scale-110">
-                              {instructor.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")
-                                .substring(0, 2)
-                                .toUpperCase()}
-                            </span>
-                            <div className="mt-4 h-1 w-12 rounded-full bg-gradient-to-r from-[#00AEEF] to-[#39B54A] opacity-50 transition-all duration-500 group-hover:w-20 group-hover:opacity-100" />
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Overlay Sosial Media saat Hover */}
-                      {instructor.linkedin && (
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                          <a
-                            href={instructor.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-white font-semibold text-sm hover:text-[#E31E24] transition-colors"
-                          >
-                            <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                            </svg>
-                            LinkedIn
-                          </a>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="pt-6 pb-2 px-2">
-                      <h3 className="text-xl font-bold text-[#1A1A1A] transition-colors group-hover:text-[#00AEEF]">
-                        {instructor.name}
-                      </h3>
-                      {instructor.role && (
-                        <p className="mt-1 text-sm font-bold text-[#E31E24]">
-                          {instructor.role}
-                        </p>
-                      )}
-                      {instructor.bio && (
-                        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-gray-500">
-                          {instructor.bio}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+            {/* Slider Instruktur (Menampilkan semua team) */}
+            <Reveal animation="up" delay={150}>
+              <InstructorSlider team={team} />
+            </Reveal>
+            
           </Container>
         </section>
       )}
