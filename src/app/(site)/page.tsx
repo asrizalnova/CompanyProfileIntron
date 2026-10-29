@@ -414,26 +414,47 @@ export default async function HomePage() {
       )}
 
       {/* TESTIMONI SECTION - Dark Premium Mode */}
-      {testimonials.length > 0 && (
-        <section className="relative overflow-hidden bg-[#0f0f0f] py-24 md:py-32">
-          <div className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-[#00AEEF]/10 blur-[150px]" />
-          <div className="absolute left-0 bottom-0 h-[400px] w-[400px] rounded-full bg-[#E31E24]/10 blur-[120px]" />
+{testimonials.length > 0 && (
+  <section className="relative overflow-hidden bg-[#0f0f0f] py-24 md:py-32">
+    <div className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-[#00AEEF]/10 blur-[150px]" />
+    <div className="absolute left-0 bottom-0 h-[400px] w-[400px] rounded-full bg-[#E31E24]/10 blur-[120px]" />
 
-          <Container className="relative z-10">
-            <Reveal animation="up">
-              <h2 className="mb-16 max-w-[20ch] text-4xl font-bold tracking-tight text-white md:text-5xl">
-                Kata Mereka Setelah{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] to-[#39B54A]">
-                  Berhasil Berangkat ke Jepang
-                </span>
-              </h2>
-            </Reveal>
-            <Reveal animation="up" delay={150}>
-              <TestimonialSlider testimonials={testimonials} />
-            </Reveal>
-          </Container>
-        </section>
-      )}
+    <Container className="relative z-10">
+      <Reveal animation="up">
+        <h2 className="mb-16 max-w-[20ch] text-4xl font-bold tracking-tight text-white md:text-5xl">
+          Kata Mereka Setelah{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] to-[#39B54A]">
+            Berhasil Berangkat ke Jepang
+          </span>
+        </h2>
+      </Reveal>
+      <Reveal animation="up" delay={150}>
+        <TestimonialSlider testimonials={testimonials} />
+      </Reveal>
+
+      {/* Tombol Lihat Semua Ulasan */}
+      <Reveal animation="up" delay={300}>
+        <div className="mt-12 flex justify-center">
+          <Link
+            href="/ulasan-siswa"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-[#00AEEF] hover:bg-[#00AEEF]/10 hover:shadow-[0_0_30px_rgba(0,174,239,0.3)]"
+          >
+            Lihat Semua Ulasan Siswa
+            <svg
+              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </div>
+      </Reveal>
+    </Container>
+  </section>
+)}
 
       {/* PARTNERS SECTION */}
       {partners.length > 0 && (
