@@ -90,10 +90,10 @@ export default async function HomePage() {
 
   return (
     <>
-              {/* HERO SECTION - Fixed Layout & Terkunci */}
+      {/* HERO SECTION - Fixed Layout & Terkunci */}
       <section className="relative isolate flex w-full items-center overflow-hidden bg-[#0f0f0f] text-white">
         
-                {/* 1. BACKGROUND GAMBAR (Menggunakan object-cover & object-center) */}
+        {/* 1. BACKGROUND GAMBAR (Menggunakan object-cover & object-center) */}
         {settings.heroImageUrl && (
           <div className="absolute inset-0 -z-20 h-full w-full">
             <img
@@ -158,10 +158,9 @@ export default async function HomePage() {
         </Container>
       </section>
 
-        {/* STATS SECTION - Mengambang (Floating) & Bersih */}
+      {/* STATS SECTION - Mengambang (Floating) & Bersih */}
       {stats.length > 0 && (
-        // Di HP margin-top hanya -mt-10 (naik dikit), di Desktop -mt-20 (naik banyak)
-        <section aria-label="Angka perusahaan" className="relative z-20 -mt-16 md:-mt-24">
+        <section aria-label="Angka perusahaan" className="relative z-20 -mt-16 pb-12 md:-mt-24 md:pb-16">
           <Container>
             <Reveal animation="up">
               <dl className="grid grid-cols-2 gap-8 rounded-[2rem] border border-gray-100 bg-white/90 p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] backdrop-blur-xl md:grid-cols-4 md:p-12">
@@ -222,15 +221,13 @@ export default async function HomePage() {
         </section>
       )}
 
-            {/* COMPANY PROFILE VIDEO SECTION */}
+      {/* COMPANY PROFILE VIDEO SECTION */}
       {companyProfileVideoUrl && (
         <section className="overflow-hidden bg-gray-50 py-20 md:py-28">
           <Container className="max-w-6xl">
             
-            {/* HEADER: BADGE & JUDUL (Di Atas, Center) */}
             <Reveal animation="up">
               <div className="flex flex-col items-center text-center mb-14">
-                {/* Bubble / Badge Logo */}
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm">
                   <span className="flex gap-1.5">
                     <span className="h-2 w-2 rounded-full bg-[#E31E24]" />
@@ -242,24 +239,18 @@ export default async function HomePage() {
                   </span>
                 </div>
 
-                {/* Judul Utama */}
                 <h2 className="text-3xl font-extrabold tracking-tight text-[#1A1A1A] md:text-5xl leading-[1.1]">
                   Mengenal Intron<br className="hidden md:block"/> Global Lebih Dekat
                 </h2>
               </div>
             </Reveal>
 
-            {/* KONTEN: 2 KOLOM (Kiri Video, Kanan Teks) */}
-            {/* Menggunakan items-center agar sejajar di tengah secara vertikal */}
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
               
-              {/* KIRI: VIDEO YOUTUBE */}
               <Reveal animation="left" delay={100}>
                 <div id="company-profile-video" className="relative w-full">
-                  {/* Efek Glow di Belakang Video */}
                   <div className="absolute -inset-1 rounded-[2.5rem] bg-gradient-to-r from-[#00AEEF] via-[#39B54A] to-[#E31E24] opacity-20 blur-xl"></div>
 
-                  {/* Video dibungkus rasio 16:9 agar proporsional */}
                   <div className="relative w-full overflow-hidden rounded-3xl border-4 border-white bg-black shadow-2xl aspect-video">
                     <div 
                       className="absolute inset-0 h-full w-full"
@@ -282,10 +273,8 @@ export default async function HomePage() {
                 </div>
               </Reveal>
 
-              {/* KANAN: TEKS PARAGRAF */}
               <Reveal animation="right" delay={200}>
                 <div className="flex flex-col justify-center text-center lg:text-left">
-                  {/* Teks disesuaikan ukurannya dan diberi spasi yang pas agar seimbang dengan tinggi video */}
                   <div className="space-y-4 text-sm leading-relaxed text-gray-600 md:text-base">
                     <p>
                       Sebagai lembaga pelatihan kerja dan bahasa Jepang yang berdedikasi, 
@@ -387,7 +376,7 @@ export default async function HomePage() {
         </section>
       )}
 
-            {/* INSTRUKTUR SECTION (Menggunakan Swiper Slider) */}
+      {/* INSTRUKTUR SECTION (Menggunakan Swiper Slider) */}
       {team.length > 0 && (
         <section className="relative overflow-hidden py-24 md:py-32 bg-white">
           <Container className="relative z-10">
@@ -420,49 +409,11 @@ export default async function HomePage() {
       )}
 
       {/* TESTIMONI SECTION - Dark Premium Mode */}
-{testimonials.length > 0 && (
-  <section className="relative overflow-hidden bg-[#0f0f0f] py-24 md:py-32">
-    <div className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-[#00AEEF]/10 blur-[150px]" />
-    <div className="absolute left-0 bottom-0 h-[400px] w-[400px] rounded-full bg-[#E31E24]/10 blur-[120px]" />
+      {testimonials.length > 0 && (
+        <section className="relative overflow-hidden bg-[#0f0f0f] py-24 md:py-32">
+          <div className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-[#00AEEF]/10 blur-[150px]" />
+          <div className="absolute left-0 bottom-0 h-[400px] w-[400px] rounded-full bg-[#E31E24]/10 blur-[120px]" />
 
-<<<<<<< HEAD
-    <Container className="relative z-10">
-      <Reveal animation="up">
-        <h2 className="mb-16 max-w-[20ch] text-4xl font-bold tracking-tight text-white md:text-5xl">
-          Kata Mereka Setelah{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00AEEF] to-[#39B54A]">
-            Berhasil Berangkat ke Jepang
-          </span>
-        </h2>
-      </Reveal>
-      <Reveal animation="up" delay={150}>
-        <TestimonialSlider testimonials={testimonials} />
-      </Reveal>
-
-      {/* Tombol Lihat Semua Ulasan */}
-      <Reveal animation="up" delay={300}>
-        <div className="mt-12 flex justify-center">
-          <Link
-            href="/ulasan-siswa"
-            className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-[#00AEEF] hover:bg-[#00AEEF]/10 hover:shadow-[0_0_30px_rgba(0,174,239,0.3)]"
-          >
-            Lihat Semua Ulasan Siswa
-            <svg
-              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-        </div>
-      </Reveal>
-    </Container>
-  </section>
-)}
-=======
           <Container className="relative z-10">
             <Reveal animation="up">
               <h2 className="mb-16 max-w-[20ch] text-4xl font-bold tracking-tight text-white md:text-5xl">
@@ -499,7 +450,6 @@ export default async function HomePage() {
           </Container>
         </section>
       )}
->>>>>>> cdde4c8 (update total slider team)
 
       {/* PARTNERS SECTION */}
       {partners.length > 0 && (
